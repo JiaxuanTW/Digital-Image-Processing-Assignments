@@ -67,6 +67,10 @@ void readBitmap(const char *filename, struct BitmapHeader *bitmapHeader, struct 
         fclose(fptr);
         exit(1);
     }
+    if (dipHeader->imageSize == 0) {
+        dipHeader->imageSize =
+                (int) (floor((double) (dipHeader->imageWidth * 8 + 31) / 32) * 4) * dipHeader->imageHeight;
+    }
 
     // Read color table
     fread(colorTable, 1024, 1, fptr);
